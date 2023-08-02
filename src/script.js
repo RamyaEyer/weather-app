@@ -54,7 +54,6 @@ const getWeatherImage = (weatherCondition) => {
     const weatherImg = new Image();
     weatherImg.src = chooseWeatherImage(weatherCondition);
     weatherImg.setAttribute('id', 'weather-img');
-
     weatherDiv.appendChild(weatherImg);
 
 

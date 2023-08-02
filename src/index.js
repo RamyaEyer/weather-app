@@ -1,7 +1,6 @@
 import css from "../style.css";
 import { getWeatherImage, removeWeatherImage } from "./script";
 
-// Have city name, country name
 const url = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
 const searchInput = document.querySelector("#search-input");
@@ -14,14 +13,16 @@ async function getWeather (cityName) {
 
   const city = document.getElementById('city');
   const conditons = document.getElementById('weather-desc');
+  const mainTemp = document.getElementById('main-temp');
   const maxTemp = document.getElementById('max-temp');
   const minTemp = document.getElementById('min-temp');
   
   city.textContent = weatherInfo.name + " Weather";
   conditons.textContent = weatherInfo["weather"][0]["main"];
  
-  maxTemp.textContent = "Max Temp: " + weatherInfo.main.temp_max;
-  minTemp.textContent = "Min Temp: " + weatherInfo.main.temp_min;
+  mainTemp.textContent = weatherInfo.main.temp + "°C";
+  maxTemp.textContent = "Max Temp: " + weatherInfo.main.temp_max + "°C";
+  minTemp.textContent = "Min Temp: " + weatherInfo.main.temp_min + "°C";
 
   removeWeatherImage();
   getWeatherImage(weatherInfo["weather"][0]["main"]);
