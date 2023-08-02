@@ -6,6 +6,7 @@ import Rain from "./images/rain.png";
 import Snow from "./images/snow.png";
 import Search from "./images/search.png";
 
+
 const chooseWeatherImage = (weatherCondition) => {
 
     if(weatherCondition === "Clear"){
@@ -52,36 +53,24 @@ const getWeatherImage = (weatherCondition) => {
     const weatherDiv = document.getElementById('weather');
     const weatherImg = new Image();
     weatherImg.src = chooseWeatherImage(weatherCondition);
+    weatherImg.setAttribute('id', 'weather-img');
 
     weatherDiv.appendChild(weatherImg);
 
 
 };
 
-const createSearchBar = () =>{
+const removeWeatherImage = () =>{
 
-    const searchDiv = document.getElementById("search-bar");
-    const searchBar = document.createElement("form");
-
-    const bar = document.createElement("input");
-    bar.setAttribute("type", "text");
-    bar.setAttribute("id", "bar");
-
-    let search = document.createElement('input');
-    search.setAttribute('type', 'submit');
-    search.setAttribute('value', 'Search City');
+    const weatherDiv = document.getElementById('weather');
+    const weatherImg = document.getElementById('weather-img');
     
-    search.addEventListener('submit', (event) => {
-     
-        event.preventDefault(); 
+    if(weatherDiv.contains(weatherImg)){
 
-    });
-    
-    searchBar.appendChild(bar);
-    searchBar.appendChild(search);
-    searchDiv.appendChild(searchBar);
+        weatherImg.removeChild(weatherImg);
 
-};
+    }
+        
+}
 
-
-export {createSearchBar, getWeatherImage};
+export {getWeatherImage, removeWeatherImage};

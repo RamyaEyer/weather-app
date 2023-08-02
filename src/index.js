@@ -1,11 +1,15 @@
 import css from "../style.css";
-import { createSearchBar, getWeatherImage } from "./script";
+import { getWeatherImage, removeWeatherImage } from "./script";
 
-const url = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=toronto&appid=" + process.env.API_KEY;
+// Have city name, country name
+const url = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-async function getWeather () {
+const searchInput = document.querySelector("#search-input");
+const searchButton = document.querySelector("#search-button");
 
-  const response = await fetch (url);
+async function getWeather (cityName) {
+
+  const response = await fetch (url + cityName + "&appid=" + process.env.API_KEY );
   var weatherInfo = await response.json();
 
   const city = document.getElementById('city');
@@ -16,9 +20,10 @@ async function getWeather () {
   city.textContent = weatherInfo.name + " Weather";
   conditons.textContent = weatherInfo["weather"][0]["main"];
  
-  maxTemp.textContent = weatherInfo.main.temp_max;
-  minTemp.textContent = weatherInfo.main.temp_min;
+  maxTemp.textContent = "Max Temp: " + weatherInfo.main.temp_max;
+  minTemp.textContent = "Min Temp: " + weatherInfo.main.temp_min;
 
+  removeWeatherImage();
   getWeatherImage(weatherInfo["weather"][0]["main"]);
   
 
@@ -26,7 +31,12 @@ async function getWeather () {
 
 }
 
-createSearchBar();
-getWeather();
+searchButton.addEventListener("click", () => {
+  
+  getWeather(searchInput.value);
+
+
+});
+
 
 
